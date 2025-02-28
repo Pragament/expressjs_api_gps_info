@@ -31,53 +31,31 @@ try {
 // 🔄 Normalize Text Function (removes special characters and makes lowercase)
 const normalizeText = (text) => text.replace(/[^a-zA-Z0-9 ]/g, "").toLowerCase();
 
-// ✅ Search API Endpoint (Fixes Case Sensitivity & Special Character Issues)
-app.get('/api/v1/search/:searchtext', (req, res) => {
-    const { searchtext } = req.params;
-    const normalizedSearchText = normalizeText(searchtext);
+// ✅ Unified API for Default Data, Search, Filters & Pagination
+app.get('/api/v1/items', (req, res) => {
+    const { searchtext = "", "sub-category-id": subCategoryId, languages, current_page = 1, items_per_page = 10 } = req.query;
 
-    console.log("🔎 Searching for:", normalizedSearchText);
-
-    if (jsonData.length === 0) {
-        return res.json({
-            message: "❌ No data loaded",
-            total_results: 0,
-            search_text: searchtext,
-            results: []
-        });
-    }
-
-    const filteredData = jsonData.filter(item =>
-        normalizeText(item.multiline_text).includes(normalizedSearchText)
-    );
-
-    console.log("🔍 Found:", filteredData.length, "results");
-
-    res.json({
-        total_results: filteredData.length.toString(),
-        search_text: searchtext,
-        results: filteredData
-    });
-});
-
-// ✅ Filter API with Pagination and Language Extraction
-app.get('/api/v1/filter/all', (req, res) => {
-    const { "sub-category-id": subCategoryId, languages, current_page = 1, items_per_page = 10 } = req.query;
     const page = parseInt(current_page) || 1;
     const limit = parseInt(items_per_page) || 10;
     const startIndex = (page - 1) * limit;
+    let filteredData = jsonData; // Start with all data by default
 
-    let filteredData = jsonData;
+    // ✅ Apply Search Filtering Only If `searchtext` is Provided
+    if (searchtext) {
+        const normalizedSearchText = normalizeText(searchtext);
+        filteredData = filteredData.filter(item =>
+            normalizeText(item.multiline_text).includes(normalizedSearchText)
+        );
+    }
 
-    // ✅ Filter by Sub-Category ID
+    // ✅ Filter by Sub-Category ID (if provided)
     if (subCategoryId) {
         filteredData = filteredData.filter(item => item["category-id"] === subCategoryId);
     }
 
-    // ✅ Filter by Languages and Extract Relevant Text
+    // ✅ Filter by Languages (if provided)
     if (languages) {
         const langArray = languages.split(",");
-
         filteredData = filteredData
             .filter(item => item.languages.some(lang => langArray.includes(lang)))
             .map(item => {
@@ -98,23 +76,31 @@ app.get('/api/v1/filter/all', (req, res) => {
     const total_pages = Math.ceil(total_count / limit);
     const paginatedResults = filteredData.slice(startIndex, startIndex + limit);
 
+    // ✅ Response Structure
     res.json({
         total_count: total_count.toString(),
-        keyword: languages || "",
+        keyword: searchtext ? searchtext : "", // 👈 Fix: Default to empty if no search
         items_per_page: limit.toString(),
         total_pages: total_pages.toString(),
         current_page: page.toString(),
         next_page: page < total_pages ? (page + 1).toString() : "",
-        next_page_api: page < total_pages ? `?sub-category-id=${subCategoryId}&languages=${languages}&current_page=${page + 1}` : "",
+        next_page_api: page < total_pages ? `/api/v1/items?searchtext=${searchtext}&sub-category-id=${subCategoryId}&languages=${languages}&current_page=${page + 1}&items_per_page=${limit}` : "",
         items: paginatedResults
     });
 });
 
-// ✅ Fetch ALL Data (No filters, No pagination)
+
+// ✅ Fetch ALL Data Without Pagination (Full JSON Structure)
 app.get('/api/v1/data/full', (req, res) => {
     res.json({
         total_count: jsonData.length.toString(),
-        items: jsonData
+        keyword: "", // No search keyword since it's full data
+        items_per_page: jsonData.length.toString(), // All items in one response
+        total_pages: "1", // Only one page since we return everything
+        current_page: "1",
+        next_page: "",
+        next_page_api: "",
+        items: jsonData // Return entire dataset
     });
 });
 
@@ -197,7 +183,6 @@ app.get('/', (req, res) => {
 // ✅ Start Server
 app.listen(PORT, () => {
     console.log(`✅ Server is running at http://localhost:${PORT}`);
-    console.log(`➡️ Search API: http://localhost:${PORT}/api/v1/search/{searchtext}`);
-    console.log(`➡️ Filter API: http://localhost:${PORT}/api/v1/filter/all?sub-category-id={subcategoryid}&languages={te,hi}&current_page={pagenumber}`);
+    console.log(`➡️ Search, Filter & Pagination API: http://localhost:${PORT}/api/v1/items?searchtext={searchtext}&sub-category-id={subcategoryid}&languages={te,hi}&current_page={pagenumber}`);
     console.log(`➡️ Full Data API: http://localhost:${PORT}/api/v1/data/full`);
 });
