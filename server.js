@@ -54,47 +54,38 @@ app.get('/api/v1/search/:searchtext', (req, res) => {
     console.log("🔍 Found:", filteredData.length, "results");
 
     res.json({
-        total_results: filteredData.length,
+        total_results: filteredData.length.toString(),
         search_text: searchtext,
         results: filteredData
     });
 });
 
-// ✅ Filter API Endpoint (Supports Sub-Category & Languages)
+// ✅ Filter API with Pagination and Language Extraction
 app.get('/api/v1/filter/all', (req, res) => {
-    const { "sub-category-id": subCategoryId, languages, current_page = 1 } = req.query;
+    const { "sub-category-id": subCategoryId, languages, current_page = 1, items_per_page = 10 } = req.query;
     const page = parseInt(current_page) || 1;
-    const limit = 10;
+    const limit = parseInt(items_per_page) || 10;
     const startIndex = (page - 1) * limit;
 
     let filteredData = jsonData;
 
-    // ✅ Filter by sub-category ID
+    // ✅ Filter by Sub-Category ID
     if (subCategoryId) {
         filteredData = filteredData.filter(item => item["category-id"] === subCategoryId);
     }
 
-    // ✅ Filter by languages and correctly extract text
+    // ✅ Filter by Languages and Extract Relevant Text
     if (languages) {
-        const langArray = languages.split(","); // Convert "te,hi" → ["te", "hi"]
+        const langArray = languages.split(",");
 
         filteredData = filteredData
-            .filter(item => item.languages.some(lang => langArray.includes(lang))) // Keep matching items
+            .filter(item => item.languages.some(lang => langArray.includes(lang)))
             .map(item => {
-                // ✅ Split `multiline_text` into separate language entries
                 const allTexts = item.multiline_text.split("\n");
+                const langMapping = { "en": 0, "ta": 1, "hi": 2, "te": 3, "kn": 4, "ml": 5 };
 
-                // ✅ Use array position to match the correct language
-                const langMapping = {
-                    "en": 0, "ta": 1, "hi": 2, "te": 3, "kn": 4, "ml": 5
-                };
-
-                // ✅ Extract only the requested languages
-                const filteredTexts = langArray.map(lang => {
-                    const index = langMapping[lang]; // Get position of language in `multiline_text`
-                    return allTexts[index] || ""; // Return text if available
-                }).filter(text => text !== ""); // Remove empty results
-
+                const filteredTexts = langArray.map(lang => allTexts[langMapping[lang]] || "").filter(text => text !== "");
+                
                 return {
                     ...item,
                     multiline_text: filteredTexts.length > 0 ? filteredTexts.join("\n") : "(No matching text found)"
@@ -108,25 +99,94 @@ app.get('/api/v1/filter/all', (req, res) => {
     const paginatedResults = filteredData.slice(startIndex, startIndex + limit);
 
     res.json({
-        total_count,
-        current_page: page,
-        total_pages,
-        next_page: page < total_pages ? page + 1 : null,
-        next_page_api: page < total_pages ? `?sub-category-id=${subCategoryId}&languages=${languages}&current_page=${page + 1}` : null,
-        results: paginatedResults
+        total_count: total_count.toString(),
+        keyword: languages || "",
+        items_per_page: limit.toString(),
+        total_pages: total_pages.toString(),
+        current_page: page.toString(),
+        next_page: page < total_pages ? (page + 1).toString() : "",
+        next_page_api: page < total_pages ? `?sub-category-id=${subCategoryId}&languages=${languages}&current_page=${page + 1}` : "",
+        items: paginatedResults
     });
 });
 
-// ✅ Fetch ALL data (No filters, No pagination)
+// ✅ Fetch ALL Data (No filters, No pagination)
 app.get('/api/v1/data/full', (req, res) => {
     res.json({
-        total_count: jsonData.length,
-        current_page: 1, // Always 1 since no pagination
-        total_pages: 1,  // Everything is returned at once
-        next_page: null,
-        next_page_api: null,
-        results: jsonData // ✅ Changed "items" to "results"
+        total_count: jsonData.length.toString(),
+        items: jsonData
     });
+});
+
+// ✅ Get a Single Item by ID
+app.get('/api/v1/item/:id', (req, res) => {
+    const { id } = req.params;
+    const item = jsonData.find(item => item["category-id"] === id);
+
+    if (!item) {
+        return res.status(404).json({ message: "Item not found" });
+    }
+
+    res.json(item);
+});
+
+// ✅ Get All Unique Languages in Data
+app.get('/api/v1/languages', (req, res) => {
+    const allLanguages = new Set();
+    jsonData.forEach(item => {
+        item.languages.forEach(lang => allLanguages.add(lang));
+    });
+
+    res.json({ languages: Array.from(allLanguages) });
+});
+
+// ✅ Get All Categories Available
+app.get('/api/v1/categories', (req, res) => {
+    const categories = [...new Set(jsonData.map(item => item["category-id"]))];
+    res.json({ categories });
+});
+
+// ✅ Delete an Item by ID
+app.delete('/api/v1/item/:id', (req, res) => {
+    const { id } = req.params;
+    const index = jsonData.findIndex(item => item["category-id"] === id);
+
+    if (index === -1) {
+        return res.status(404).json({ message: "Item not found" });
+    }
+
+    jsonData.splice(index, 1);
+    res.json({ message: "Item deleted successfully", total_count: jsonData.length.toString() });
+});
+
+// ✅ Update an Item by ID
+app.put('/api/v1/item/:id', (req, res) => {
+    const { id } = req.params;
+    const updatedData = req.body;
+
+    const index = jsonData.findIndex(item => item["category-id"] === id);
+    if (index === -1) {
+        return res.status(404).json({ message: "Item not found" });
+    }
+
+    jsonData[index] = { ...jsonData[index], ...updatedData };
+    res.json({ message: "Item updated successfully", updated_item: jsonData[index] });
+});
+
+// ✅ Get a Random Item
+app.get('/api/v1/item/random', (req, res) => {
+    if (jsonData.length === 0) {
+        return res.status(404).json({ message: "No data available" });
+    }
+
+    const randomItem = jsonData[Math.floor(Math.random() * jsonData.length)];
+    res.json(randomItem);
+});
+
+// ✅ Get Items Sorted by Category
+app.get('/api/v1/items/sorted', (req, res) => {
+    const sortedData = jsonData.sort((a, b) => a["category-id"] - b["category-id"]);
+    res.json({ total_count: sortedData.length.toString(), results: sortedData });
 });
 
 // ✅ Default Route
