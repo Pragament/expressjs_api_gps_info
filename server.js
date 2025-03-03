@@ -31,16 +31,15 @@ try {
 // 🔄 Normalize Text Function (removes special characters and makes lowercase)
 const normalizeText = (text) => text.replace(/[^a-zA-Z0-9 ]/g, "").toLowerCase();
 
-// ✅ Unified API for Default Data, Search, Filters & Pagination
 app.get('/api/v1/items', (req, res) => {
     const { searchtext = "", "sub-category-id": subCategoryId, languages, current_page = 1, items_per_page = 10 } = req.query;
 
-    const page = parseInt(current_page) || 1;
+    const page = Math.max(1, parseInt(current_page) || 1); // ✅ Ensures page is at least 1
     const limit = parseInt(items_per_page) || 10;
     const startIndex = (page - 1) * limit;
-    let filteredData = jsonData; // Start with all data by default
+    let filteredData = jsonData;
 
-    // ✅ Apply Search Filtering Only If `searchtext` is Provided
+    // Search filter
     if (searchtext) {
         const normalizedSearchText = normalizeText(searchtext);
         filteredData = filteredData.filter(item =>
@@ -48,12 +47,12 @@ app.get('/api/v1/items', (req, res) => {
         );
     }
 
-    // ✅ Filter by Sub-Category ID (if provided)
+    // Sub-category filter
     if (subCategoryId) {
         filteredData = filteredData.filter(item => item["category-id"] === subCategoryId);
     }
 
-    // ✅ Filter by Languages (if provided)
+    // Language filter
     if (languages) {
         const langArray = languages.split(",");
         filteredData = filteredData
@@ -61,7 +60,6 @@ app.get('/api/v1/items', (req, res) => {
             .map(item => {
                 const allTexts = item.multiline_text.split("\n");
                 const langMapping = { "en": 0, "ta": 1, "hi": 2, "te": 3, "kn": 4, "ml": 5 };
-
                 const filteredTexts = langArray.map(lang => allTexts[langMapping[lang]] || "").filter(text => text !== "");
                 
                 return {
@@ -71,15 +69,14 @@ app.get('/api/v1/items', (req, res) => {
             });
     }
 
-    // ✅ Pagination logic
+    // Pagination logic
     const total_count = filteredData.length;
     const total_pages = Math.ceil(total_count / limit);
     const paginatedResults = filteredData.slice(startIndex, startIndex + limit);
 
-    // ✅ Response Structure
     res.json({
         total_count: total_count.toString(),
-        keyword: searchtext ? searchtext : "", // 👈 Fix: Default to empty if no search
+        keyword: searchtext || "",
         items_per_page: limit.toString(),
         total_pages: total_pages.toString(),
         current_page: page.toString(),
@@ -88,6 +85,7 @@ app.get('/api/v1/items', (req, res) => {
         items: paginatedResults
     });
 });
+
 
 
 // ✅ Fetch ALL Data Without Pagination (Full JSON Structure)
