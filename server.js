@@ -169,7 +169,8 @@ app.get('/api/v1/item/random', (req, res) => {
 
 // ✅ Get Items Sorted by Category
 app.get('/api/v1/items/sorted', (req, res) => {
-    const sortedData = jsonData.sort((a, b) => a["category-id"] - b["category-id"]);
+    const sortedData = jsonData.slice().sort((a, b) => a["category-id"] - b["category-id"]);
+
     res.json({ total_count: sortedData.length.toString(), results: sortedData });
 });
 
