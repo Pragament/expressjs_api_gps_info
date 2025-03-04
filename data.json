@@ -366,6 +366,682 @@
                 "kn",
                 "ml"
             ]
-        }
+        },
+        {
+            "multiline_text": "Restart device!\nThodarbiyam Seiyavum!\nPunah Prarambh Karen!\nPunararambham Cheyyandi!\nPunararambha Maadi!\nPunararambham Cheyyuka!",
+            "gif": "https://staticapis.pragament.com/1.gif",
+            "thumbnail_gif": "https://dummyimage.com/100/000000/fff.gif?text=Restart device.",
+            "youtube_url": "https://youtu.be/sample_video",
+            "category-id": "16",
+            "languages": [
+                "en",
+                "ta",
+                "hi",
+                "te",
+                "kn",
+                "ml"
+            ]
+          },
+          {
+            "multiline_text": "Update software!\nSeiyalpaduththu!\nSoftware Update Karen!\nSoftware Update Cheyyandi!\nSoftware Update Maadi!\nSoftware Update Cheyyuka!",
+            "gif": "https://staticapis.pragament.com/1.gif",
+            "thumbnail_gif": "https://dummyimage.com/100/000000/fff.gif?text=Update software.",
+            "youtube_url": "https://youtu.be/sample_video",
+            "category-id": "16",
+            "languages": [
+                "en",
+                "ta",
+                "hi",
+                "te",
+                "kn",
+                "ml"
+            ]
+          },
+          {
+            "multiline_text": "Clear cache!\nManikkam Kallan!\nCache Saaf Karen!\nCache Theeyandi!\nCache Saaf Maadi!\nCache Theekkuka!",
+            "gif": "https://staticapis.pragament.com/1.gif",
+            "thumbnail_gif": "https://dummyimage.com/100/000000/fff.gif?text=Clear cache.",
+            "youtube_url": "https://youtu.be/sample_video",
+            "category-id": "16",
+            "languages": [
+                "en",
+                "ta",
+                "hi",
+                "te",
+                "kn",
+                "ml"
+            ]
+          },
+          {
+            "multiline_text": "Tell joke!\nNakkal Pesu!\nMazak Kaho!\nJoke Cheppandi!\nTamasha Helu!\nJoke Parayu!",
+            "gif": "https://staticapis.pragament.com/1.gif",
+            "thumbnail_gif": "https://dummyimage.com/100/000000/fff.gif?text=Tell joke.",
+            "youtube_url": "https://youtu.be/sample_video",
+            "category-id": "17",
+            "languages": [
+                "en",
+                "ta",
+                "hi",
+                "te",
+                "kn",
+                "ml"
+            ]
+          },
+          {
+            "multiline_text": "Fun fact!\nAriviyal Porul!\nMaje Ki Baat!\nVinodamaina Vishayam!\nTamasheya Vastu!\nManoharamaya Vastu!",
+            "gif": "https://staticapis.pragament.com/1.gif",
+            "thumbnail_gif": "https://dummyimage.com/100/000000/fff.gif?text=Fun fact.",
+            "youtube_url": "https://youtu.be/sample_video",
+            "category-id": "17",
+            "languages": [
+                "en",
+                "ta",
+                "hi",
+                "te",
+                "kn",
+                "ml"
+            ]
+          },
+          {
+            "multiline_text": "Play something!\nEdhavadhu Vilaiyadu!\nKuch Bajao!\nEdhaina Aadini!\nYenadaru Aadu!\nOnnum Kalikkuka!",
+            "gif": "https://staticapis.pragament.com/1.gif",
+            "thumbnail_gif": "https://dummyimage.com/100/000000/fff.gif?text=Play something.",
+            "youtube_url": "https://youtu.be/sample_video",
+            "category-id": "17",
+            "languages": [
+                "en",
+                "ta",
+                "hi",
+                "te",
+                "kn",
+                "ml"
+            ]
+          },
+          {
+            "multiline_text": "Explain topic!\nVishayam Velipaduththu!\nVishay Samjhao!\nVishayam Vivarinchandi!\nVishaya Vivarisi!\nVishayam Vivarikkuka!",
+            "gif": "https://staticapis.pragament.com/1.gif",
+            "thumbnail_gif": "https://dummyimage.com/100/000000/fff.gif?text=Explain topic.",
+            "youtube_url": "https://youtu.be/sample_video",
+            "category-id": "18",
+            "languages": [
+                "en",
+                "ta",
+                "hi",
+                "te",
+                "kn",
+                "ml"
+            ]
+          },
+          {
+            "multiline_text": "Study tips!\nPadippu Kurippu!\nAdhyayan Salah!\nChaduvu Cheralu!\nOdu Salahe!\nPadippu Tips!",
+            "gif": "https://staticapis.pragament.com/1.gif",
+            "thumbnail_gif": "https://dummyimage.com/100/000000/fff.gif?text=Study tips.",
+            "youtube_url": "https://youtu.be/sample_video",
+            "category-id": "18",
+            "languages": [
+                "en",
+                "ta",
+                "hi",
+                "te",
+                "kn",
+                "ml"
+            ]
+          },
+          {
+            "multiline_text": "Learning resources!\nKalvi Valangal!\nAdhyayan Sadhan!\nNeerchukovadam Saadhanalu!\nKaliyuva Vastu!\nPadippinu Upakaravastu!",
+            "gif": "https://staticapis.pragament.com/1.gif",
+            "thumbnail_gif": "https://dummyimage.com/100/000000/fff.gif?text=Learning resources.",
+            "youtube_url": "https://youtu.be/sample_video",
+            "category-id": "18",
+            "languages": [
+                "en",
+                "ta",
+                "hi",
+                "te",
+                "kn",
+                "ml"
+            ]
+          },
+          {
+            "multiline_text": "Stay focused!\nGavanam Kattum!\nDhyan Kendrit Raho!\nDhyanam Mida Undandi!\nManasu Madi!\nDhyanamayirikku!",
+            "gif": "https://staticapis.pragament.com/1.gif",
+            "thumbnail_gif": "https://dummyimage.com/100/000000/fff.gif?text=Stay focused.",
+            "youtube_url": "https://youtu.be/sample_video",
+            "category-id": "19",
+            "languages": [
+                "en",
+                "ta",
+                "hi",
+                "te",
+                "kn",
+                "ml"
+            ]
+          },
+          {
+            "multiline_text": "Keep going!\nThodarndhu Sei!\nAage Badho!\nMunduku Vellandi!\nMunde Hogu!\nMunnotu Pokuka!",
+            "gif": "https://staticapis.pragament.com/1.gif",
+            "thumbnail_gif": "https://dummyimage.com/100/000000/fff.gif?text=Keep going.",
+            "youtube_url": "https://youtu.be/sample_video",
+            "category-id": "19",
+            "languages": [
+                "en",
+                "ta",
+                "hi",
+                "te",
+                "kn",
+                "ml"
+            ]
+          },
+          {
+            "multiline_text": "Work smart!\nBuddhisaliyaaga Velai Sei!\nSamajhdari Se Kaam Karo!\nTelivitho Panicheseyandi!\nBuddhivantha Kelasa Maadi!\nBuddhimuttayulla Pani Ceyyuka!",
+            "gif": "https://staticapis.pragament.com/1.gif",
+            "thumbnail_gif": "https://dummyimage.com/100/000000/fff.gif?text=Work smart.",
+            "youtube_url": "https://youtu.be/sample_video",
+            "category-id": "19",
+            "languages": [
+                "en",
+                "ta",
+                "hi",
+                "te",
+                "kn",
+                "ml"
+            ]
+          },
+          {
+            "multiline_text": "Drink water!\nTanneer Kudi!\nPani Piyo!\nNeellu Tagandi!\nNeeru Kudiyiri!\nJalam Kudikkuka!",
+            "gif": "https://staticapis.pragament.com/1.gif",
+            "thumbnail_gif": "https://dummyimage.com/100/000000/fff.gif?text=Drink water.",
+            "youtube_url": "https://youtu.be/sample_video",
+            "category-id": "20",
+            "languages": [
+                "en",
+                "ta",
+                "hi",
+                "te",
+                "kn",
+                "ml"
+            ]
+          },
+          {
+            "multiline_text": "Exercise daily!\nDinamum Udalpayirchi Sei!\nRozana Kasrat Karo!\nPratidina Vyayamam Cheyyandi!\nDina Vyayama Maadi!\nDivasam Oru Vyayamam Ceyyuka!",
+            "gif": "https://staticapis.pragament.com/1.gif",
+            "thumbnail_gif": "https://dummyimage.com/100/000000/fff.gif?text=Exercise daily.",
+            "youtube_url": "https://youtu.be/sample_video",
+            "category-id": "20",
+            "languages": [
+                "en",
+                "ta",
+                "hi",
+                "te",
+                "kn",
+                "ml"
+            ]
+          },
+          {
+            "multiline_text": "Sleep well!\nNandraaga Urangu!\nAchha So!\nBagunuga Nidrapovandi!\nOlle Nidde Maadi!\nNanna Urangu!",
+            "gif": "https://staticapis.pragament.com/1.gif",
+            "thumbnail_gif": "https://dummyimage.com/100/000000/fff.gif?text=Sleep well.",
+            "youtube_url": "https://youtu.be/sample_video",
+            "category-id": "20",
+            "languages": [
+                "en",
+                "ta",
+                "hi",
+                "te",
+                "kn",
+                "ml"
+            ]
+          },
+          {
+            "multiline_text": "Travel tips!\nPayanam Kurippu!\nYatra Salah!\nPrayana Cheralu!\nPrayana Salah!\nYathrayude Tips!",
+            "gif": "https://staticapis.pragament.com/1.gif",
+            "thumbnail_gif": "https://dummyimage.com/100/000000/fff.gif?text=Travel tips.",
+            "youtube_url": "https://youtu.be/sample_video",
+            "category-id": "21",
+            "languages": [
+                "en",
+                "ta",
+                "hi",
+                "te",
+                "kn",
+                "ml"
+            ]
+          },
+          {
+            "multiline_text": "Visit where?\nEngu Pogalam?\nKahan Jayein?\nEkkada Velali?\nElli Hogabeku?\nEvide Pokam?",
+            "gif": "https://staticapis.pragament.com/1.gif",
+            "thumbnail_gif": "https://dummyimage.com/100/000000/fff.gif?text=Visit where?",
+            "youtube_url": "https://youtu.be/sample_video",
+            "category-id": "21",
+            "languages": [
+                "en",
+                "ta",
+                "hi",
+                "te",
+                "kn",
+                "ml"
+            ]
+          },
+          {
+            "multiline_text": "Explore more!\nNokki Kaanavum!\nAur Khojo!\nInka Telusuko!\nInnu Hegilu!\nKooduthal Arinjuka!",
+            "gif": "https://staticapis.pragament.com/1.gif",
+            "thumbnail_gif": "https://dummyimage.com/100/000000/fff.gif?text=Explore more.",
+            "youtube_url": "https://youtu.be/sample_video",
+            "category-id": "21",
+            "languages": [
+                "en",
+                "ta",
+                "hi",
+                "te",
+                "kn",
+                "ml"
+            ]
+          },
+          {
+            "multiline_text": "Save money!\nPanam Save Sei!\nPaise Bachao!\nDabbulu Kapadandi!\nDuddu Bachisiko!\nPanam Rakshikkuka!",
+            "gif": "https://staticapis.pragament.com/1.gif",
+            "thumbnail_gif": "https://dummyimage.com/100/000000/fff.gif?text=Save money.",
+            "youtube_url": "https://youtu.be/sample_video",
+            "category-id": "22",
+            "languages": [
+                "en",
+                "ta",
+                "hi",
+                "te",
+                "kn",
+                "ml"
+            ]
+          },
+          {
+            "multiline_text": "Invest wisely!\nBuddhisaliyaaga Panam Idam!\nSamajhdari Se Nivesh Karo!\nTelivitho Dabbulu Pettandi!\nYochisiddu Nivesh Maadi!\nBuddhiyode Nivesh Ceyyuka!",
+            "gif": "https://staticapis.pragament.com/1.gif",
+            "thumbnail_gif": "https://dummyimage.com/100/000000/fff.gif?text=Invest wisely.",
+            "youtube_url": "https://youtu.be/sample_video",
+            "category-id": "22",
+            "languages": [
+                "en",
+                "ta",
+                "hi",
+                "te",
+                "kn",
+                "ml"
+            ]
+          },
+          {
+            "multiline_text": "Manage budget!\nSelavukalai Amaippu Sei!\nBudget Sambhal Kar Chalao!\nBudget Sarigga Nirvahinchandi!\nBudjet Nirvahisalu!\nAavashyathode Budget Nirvahikkuka!",
+            "gif": "https://staticapis.pragament.com/1.gif",
+            "thumbnail_gif": "https://dummyimage.com/100/000000/fff.gif?text=Manage budget.",
+            "youtube_url": "https://youtu.be/sample_video",
+            "category-id": "22",
+            "languages": [
+                "en",
+                "ta",
+                "hi",
+                "te",
+                "kn",
+                "ml"
+            ]
+          },
+          {
+            "multiline_text": "Debug error!\nPizhai Thedi!\nTruti Khojo!\nTappu Theliyaandi!\nTappu Huduku!\nDosham Thedi!",
+            "gif": "https://staticapis.pragament.com/1.gif",
+            "thumbnail_gif": "https://dummyimage.com/100/000000/fff.gif?text=Debug error.",
+            "youtube_url": "https://youtu.be/sample_video",
+            "category-id": "23",
+            "languages": [
+                "en",
+                "ta",
+                "hi",
+                "te",
+                "kn",
+                "ml"
+            ]
+          },
+          {
+            "multiline_text": "Code faster!\nVegamaaga Kodu!\nTezi Se Code Karo!\nTvaraga Code Cheyyandi!\nBeega Code Maadi!\nVegathil Code Ceyyuka!",
+            "gif": "https://staticapis.pragament.com/1.gif",
+            "thumbnail_gif": "https://dummyimage.com/100/000000/fff.gif?text=Code faster.",
+            "youtube_url": "https://youtu.be/sample_video",
+            "category-id": "23",
+            "languages": [
+                "en",
+                "ta",
+                "hi",
+                "te",
+                "kn",
+                "ml"
+            ]
+          },
+          {
+            "multiline_text": "Learn programming!\nNiraivuaga Kathu Kollu!\nProgramming Seekho!\nProgramming Nerchuko!\nProgramming Kaliyiri!\nProgramming Padikkuka!",
+            "gif": "https://staticapis.pragament.com/1.gif",
+            "thumbnail_gif": "https://dummyimage.com/100/000000/fff.gif?text=Learn programming.",
+            "youtube_url": "https://youtu.be/sample_video",
+            "category-id": "23",
+            "languages": [
+                "en",
+                "ta",
+                "hi",
+                "te",
+                "kn",
+                "ml"
+            ]
+          },
+          {
+            "multiline_text": "Try DIY!\nUnnathaiyai Sei!\nSwatah Karo!\nMee Tho Chesukondi!\nNimma Kele Maadi!\nThanikku Thanichu Ceyyuka!",
+            "gif": "https://staticapis.pragament.com/1.gif",
+            "thumbnail_gif": "https://dummyimage.com/100/000000/fff.gif?text=Try DIY.",
+            "youtube_url": "https://youtu.be/sample_video",
+            "category-id": "24",
+            "languages": [
+                "en",
+                "ta",
+                "hi",
+                "te",
+                "kn",
+                "ml"
+            ]
+          },
+          {
+            "multiline_text": "Create something!\nOndru Undakku!\nKuch Banao!\nEdhaina Srishtinchandi!\nOndu Srushti Maadi!\nOnnude Undakki!",
+            "gif": "https://staticapis.pragament.com/1.gif",
+            "thumbnail_gif": "https://dummyimage.com/100/000000/fff.gif?text=Create something.",
+            "youtube_url": "https://youtu.be/sample_video",
+            "category-id": "24",
+            "languages": [
+                "en",
+                "ta",
+                "hi",
+                "te",
+                "kn",
+                "ml"
+            ]
+          },
+          {
+            "multiline_text": "New hobby?\nPudhiya Pazhagu!\nNaya Shauk?\nKotha Alavatam?\nHosa Shauk?\nPuthiya Thiran?",
+            "gif": "https://staticapis.pragament.com/1.gif",
+            "thumbnail_gif": "https://dummyimage.com/100/000000/fff.gif?text=New hobby?",
+            "youtube_url": "https://youtu.be/sample_video",
+            "category-id": "24",
+            "languages": [
+                "en",
+                "ta",
+                "hi",
+                "te",
+                "kn",
+                "ml"
+            ]
+          },
+          {
+            "multiline_text": "Listen more.\nKettu Kollungal!\nAur Suno!\nEkkavaga Vinandi!\nJaasti Keliri!\nKettu Kolluka!",
+            "gif": "https://staticapis.pragament.com/1.gif",
+            "thumbnail_gif": "https://dummyimage.com/100/000000/fff.gif?text=Listen more.",
+            "youtube_url": "https://youtu.be/sample_video",
+            "category-id": "25",
+            "languages": [
+                "en",
+                "ta",
+                "hi",
+                "te",
+                "kn",
+                "ml"
+            ]
+          },
+          {
+            "multiline_text": "Communicate better.\nUyarndha Thodarpu!\nAchhi Tarah Baat Karo!\nManchi Matladevidham!\nOlle Sambhashane Maadi!\nNalloru Sambhashanam!",
+            "gif": "https://staticapis.pragament.com/1.gif",
+            "thumbnail_gif": "https://dummyimage.com/100/000000/fff.gif?text=Communicate better.",
+            "youtube_url": "https://youtu.be/sample_video",
+            "category-id": "25",
+            "languages": [
+                "en",
+                "ta",
+                "hi",
+                "te",
+                "kn",
+                "ml"
+            ]
+          },
+          {
+            "multiline_text": "Be kind.\nNallavaraagiru!\nDayalu Bano!\nManchi Ga Undu!\nDaya Maadi!\nKarunai Ullavargal Aagunga!",
+            "gif": "https://staticapis.pragament.com/1.gif",
+            "thumbnail_gif": "https://dummyimage.com/100/000000/fff.gif?text=Be kind.",
+            "youtube_url": "https://youtu.be/sample_video",
+            "category-id": "25",
+            "languages": [
+                "en",
+                "ta",
+                "hi",
+                "te",
+                "kn",
+                "ml"
+            ]
+          },
+          {
+            "multiline_text": "Play now.\nVilaiyadu!\nAb Khelo!\nIppudu Aadaandi!\nIga Aadu!\nInni Vilayaduka!",
+            "gif": "https://staticapis.pragament.com/1.gif",
+            "thumbnail_gif": "https://dummyimage.com/100/000000/fff.gif?text=Play now.",
+            "youtube_url": "https://youtu.be/sample_video",
+            "category-id": "26",
+            "languages": [
+                "en",
+                "ta",
+                "hi",
+                "te",
+                "kn",
+                "ml"
+            ]
+          },
+          {
+            "multiline_text": "Level up.\nNilai Uyarthu!\nStar Badhao!\nSthayi Perugu!\nHadi Hechu Maadi!\nNilavaram Uyarthuka!",
+            "gif": "https://staticapis.pragament.com/1.gif",
+            "thumbnail_gif": "https://dummyimage.com/100/000000/fff.gif?text=Level up.",
+            "youtube_url": "https://youtu.be/sample_video",
+            "category-id": "26",
+            "languages": [
+                "en",
+                "ta",
+                "hi",
+                "te",
+                "kn",
+                "ml"
+            ]
+          },
+          {
+            "multiline_text": "Game tips?\nVilaiyatta Kurippu?\nKhel Ke Tips?\nAata Suchanalu?\nAata Kidi Maadi?\nVilayattu Tips?",
+            "gif": "https://staticapis.pragament.com/1.gif",
+            "thumbnail_gif": "https://dummyimage.com/100/000000/fff.gif?text=Game tips?",
+            "youtube_url": "https://youtu.be/sample_video",
+            "category-id": "26",
+            "languages": [
+                "en",
+                "ta",
+                "hi",
+                "te",
+                "kn",
+                "ml"
+            ]
+          },
+          {
+            "multiline_text": "Breaking news.\nThodarpiyam!\nTaza Khabar!\nMukhyamaina Vartha!\nTaja Suddi!\nVartha Thodappiyam!",
+            "gif": "https://staticapis.pragament.com/1.gif",
+            "thumbnail_gif": "https://dummyimage.com/100/000000/fff.gif?text=Breaking news.",
+            "youtube_url": "https://youtu.be/sample_video",
+            "category-id": "27",
+            "languages": [
+                "en",
+                "ta",
+                "hi",
+                "te",
+                "kn",
+                "ml"
+            ]
+          },
+          {
+            "multiline_text": "Trending now.\nInnikku Sei!\nAb Chal Raha Hai!\nIppudu Trend Lo Undi!\nIga Trend Nadiyutide!\nIthaa Ippol Nadakuthu!",
+            "gif": "https://staticapis.pragament.com/1.gif",
+            "thumbnail_gif": "https://dummyimage.com/100/000000/fff.gif?text=Trending now.",
+            "youtube_url": "https://youtu.be/sample_video",
+            "category-id": "27",
+            "languages": [
+                "en",
+                "ta",
+                "hi",
+                "te",
+                "kn",
+                "ml"
+            ]
+          },
+          {
+            "multiline_text": "Daily update.\nDinamum Thagaval!\nRozana Update!\nPratidina Thalupu!\nDinadina Suddi!\nDinamum Puthuvitha!",
+            "gif": "https://staticapis.pragament.com/1.gif",
+            "thumbnail_gif": "https://dummyimage.com/100/000000/fff.gif?text=Daily update.",
+            "youtube_url": "https://youtu.be/sample_video",
+            "category-id": "27",
+            "languages": [
+                "en",
+                "ta",
+                "hi",
+                "te",
+                "kn",
+                "ml"
+            ]
+          },
+          {
+            "multiline_text": "Write more.\nNeraya Ezhuthu!\nZyada Likho!\nEkkavaga Raayandi!\nHinna Bareyiri!\nNiraivana Ezhuthu!",
+            "gif": "https://staticapis.pragament.com/1.gif",
+            "thumbnail_gif": "https://dummyimage.com/100/000000/fff.gif?text=Write more.",
+            "youtube_url": "https://youtu.be/sample_video",
+            "category-id": "28",
+            "languages": [
+                "en",
+                "ta",
+                "hi",
+                "te",
+                "kn",
+                "ml"
+            ]
+          },
+          {
+            "multiline_text": "Think creative.\nSirushtikkollungal!\nRachnatmak Socho!\nSrujanatmaka Alochinchandi!\nSrujanatmaka Alochisu!\nSirushti Sei!",
+            "gif": "https://staticapis.pragament.com/1.gif",
+            "thumbnail_gif": "https://dummyimage.com/100/000000/fff.gif?text=Think creative.",
+            "youtube_url": "https://youtu.be/sample_video",
+            "category-id": "28",
+            "languages": [
+                "en",
+                "ta",
+                "hi",
+                "te",
+                "kn",
+                "ml"
+            ]
+          },
+          {
+            "multiline_text": "Brainstorm ideas.\nSindhanaithiran Katti!\nSoch Banao!\nAlochana Chesi Nerchuko!\nTantrika Alochane Maadi!\nSindhanai Thirambu!",
+            "gif": "https://staticapis.pragament.com/1.gif",
+            "thumbnail_gif": "https://dummyimage.com/100/000000/fff.gif?text=Brainstorm ideas.",
+            "youtube_url": "https://youtu.be/sample_video",
+            "category-id": "28",
+            "languages": [
+                "en",
+                "ta",
+                "hi",
+                "te",
+                "kn",
+                "ml"
+            ]
+          },
+          {
+            "multiline_text": "Best deals.\nSirandha Oppantham!\nBehtareen Deal!\nManchi Offer!\nUttama Beleyalli!\nNalla Oppandham!",
+            "gif": "https://staticapis.pragament.com/1.gif",
+            "thumbnail_gif": "https://dummyimage.com/100/000000/fff.gif?text=Best deals.",
+            "youtube_url": "https://youtu.be/sample_video",
+            "category-id": "29",
+            "languages": [
+                "en",
+                "ta",
+                "hi",
+                "te",
+                "kn",
+                "ml"
+            ]
+          },
+          {
+            "multiline_text": "Compare prices.\nVilai Othungal!\nDaam Compare Karo!\nDara Tulana Cheyyandi!\nBelayannu Tulana Maadi!\nVilai Oththuka!",
+            "gif": "https://staticapis.pragament.com/1.gif",
+            "thumbnail_gif": "https://dummyimage.com/100/000000/fff.gif?text=Compare prices.",
+            "youtube_url": "https://youtu.be/sample_video",
+            "category-id": "29",
+            "languages": [
+                "en",
+                "ta",
+                "hi",
+                "te",
+                "kn",
+                "ml"
+            ]
+          },
+          {
+            "multiline_text": "Shop now.\nVaangungal!\nAb Kharido!\nIppudu Konandi!\nIga Kharidi Maadi!\nVanguka!",
+            "gif": "https://staticapis.pragament.com/1.gif",
+            "thumbnail_gif": "https://dummyimage.com/100/000000/fff.gif?text=Shop now.",
+            "youtube_url": "https://youtu.be/sample_video",
+            "category-id": "29",
+            "languages": [
+                "en",
+                "ta",
+                "hi",
+                "te",
+                "kn",
+                "ml"
+            ]
+          },
+          {
+            "multiline_text": "Explore space.\nVaanathai Arayungal!\nAntriksh Khojo!\nAkasam Anvesinchandi!\nAakashavannu Anvesisi!\nAkasham Thedi Ariyuka!",
+            "gif": "https://staticapis.pragament.com/1.gif",
+            "thumbnail_gif": "https://dummyimage.com/100/000000/fff.gif?text=Explore space.",
+            "youtube_url": "https://youtu.be/sample_video",
+            "category-id": "30",
+            "languages": [
+                "en",
+                "ta",
+                "hi",
+                "te",
+                "kn",
+                "ml"
+            ]
+          },
+          {
+            "multiline_text": "Nature rocks!\nIyarkai Arpudam!\nPrakriti Zabardast Hai!\nPrakruti Adbhutam!\nNisarga Chamatkara!\nPrakruthi Athbhutham!",
+            "gif": "https://staticapis.pragament.com/1.gif",
+            "thumbnail_gif": "https://dummyimage.com/100/000000/fff.gif?text=Nature rocks!",
+            "youtube_url": "https://youtu.be/sample_video",
+            "category-id": "30",
+            "languages": [
+                "en",
+                "ta",
+                "hi",
+                "te",
+                "kn",
+                "ml"
+            ]
+          },
+          {
+            "multiline_text": "Science rules.\nAriviyal Arasan!\nVigyan Shashak Hai!\nVijnanam Pramukham!\nVijnana Adhipatyavide!\nVijnanam Adhipathyam!",
+            "gif": "https://staticapis.pragament.com/1.gif",
+            "thumbnail_gif": "https://dummyimage.com/100/000000/fff.gif?text=Science rules.",
+            "youtube_url": "https://youtu.be/sample_video",
+            "category-id": "30",
+            "languages": [
+                "en",
+                "ta",
+                "hi",
+                "te",
+                "kn",
+                "ml"
+            ]
+          }
+        
     ]
 }
