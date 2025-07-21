@@ -4880,28 +4880,7 @@
         "latitude": 17.32,
         "longitude": 78.52
     },
-    {
-        "placeName": "Sanghi Nagar",
-        "placeType": "Neighborhood",
-        "country": "India",
-        "state": "Telangana",
-        "region": "Saroornagar",
-        "district": "Hyderabad",
-        "pincode": "501511",
-        "lokSabhaConstituency": "N/A",
-        "vidhanSabhaConstituency": "N/A",
-        "imageUrls": [
-            "https:/static/images/icons/wikipedia.png",
-            "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e2/India_Telangana_location_map.svg/250px-India_Telangana_location_map.svg.png",
-            "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0c/Red_pog.svg/20px-Red_pog.svg.png",
-            "https://upload.wikimedia.org/wikipedia/en/thumb/4/41/Flag_of_India.svg/40px-Flag_of_India.svg.png",
-            "https://upload.wikimedia.org/wikipedia/commons/thumb/7/71/Charminar_Hyderabad_1.jpg/20px-Charminar_Hyderabad_1.jpg",
-            "https://upload.wikimedia.org/wikipedia/commons/thumb/7/71/Charminar_Hyderabad_1.jpg/40px-Charminar_Hyderabad_1.jpg",
-            "https:https://en.wikipedia.org/wiki/Special:CentralAutoLogin/start?type=1x1&usesul3=1"
-        ],
-        "latitude": 17.26667,
-        "longitude": 78.67639
-    },
+   
     {
         "placeName": "Santoshnagar",
         "placeType": "Neighborhood",
@@ -10613,31 +10592,7 @@
         "latitude": 17.383,
         "longitude": 78.317
     },
-    {
-        "placeName": "Ibrahimpatnam, Ranga Reddy district",
-        "placeType": "Neighborhood",
-        "country": "India",
-        "state": "Telangana",
-        "region": "Shamshabad",
-        "district": "Ranga Reddy",
-        "pincode": "N/A",
-        "lokSabhaConstituency": "N/A",
-        "vidhanSabhaConstituency": "N/A",
-        "imageUrls": [
-            "https:/static/images/icons/wikipedia.png",
-            "https://upload.wikimedia.org/wikipedia/en/thumb/9/99/Question_book-new.svg/60px-Question_book-new.svg.png",
-            "https://upload.wikimedia.org/wikipedia/commons/thumb/b/be/Ibrahimpatnam_police_station.jpg/250px-Ibrahimpatnam_police_station.jpg",
-            "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e2/India_Telangana_location_map.svg/250px-India_Telangana_location_map.svg.png",
-            "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0c/Red_pog.svg/20px-Red_pog.svg.png",
-            "https://upload.wikimedia.org/wikipedia/commons/thumb/d/dc/India_location_map.svg/250px-India_location_map.svg.png",
-            "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0c/Red_pog.svg/20px-Red_pog.svg.png",
-            "https://upload.wikimedia.org/wikipedia/en/thumb/4/41/Flag_of_India.svg/40px-Flag_of_India.svg.png",
-            "https://upload.wikimedia.org/wikipedia/commons/thumb/7/71/Charminar_Hyderabad_1.jpg/20px-Charminar_Hyderabad_1.jpg",
-            "https:https://en.wikipedia.org/wiki/Special:CentralAutoLogin/start?type=1x1&usesul3=1"
-        ],
-        "latitude": 17.1017187,
-        "longitude": 78.6293545
-    },
+    
     {
         "placeName": "IDA Bollaram",
         "placeType": "Neighborhood",
