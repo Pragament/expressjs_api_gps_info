@@ -9,6 +9,7 @@ const PORT = 5001; // Changed from 5000 to 5001
 // Middleware
 app.use(cors());
 app.use(express.json());
+app.use(express.static(__dirname));
 
 // Load JSON Data
 const dataFilePath = path.join(__dirname, 'data.json');
@@ -26,6 +27,31 @@ try {
     console.log("✅ Data loaded successfully. Total records:", jsonData.length);
 } catch (error) {
     console.error("❌ Error reading JSON file:", error);
+}
+
+// Load Neighborhoods Data
+const neighborhoodsFilePath = path.join(__dirname, 'neighborhoods_data_ss.json');
+let neighborhoodsData = [];
+try {
+    const rawNeighborhoods = fs.readFileSync(neighborhoodsFilePath, 'utf8');
+    neighborhoodsData = JSON.parse(rawNeighborhoods);
+    console.log("✅ Neighborhoods data loaded. Total records:", neighborhoodsData.length);
+} catch (error) {
+    console.error("❌ Error reading neighborhoods JSON file:", error);
+    console.log("ℹ️ Using empty neighborhoods data array. Please ensure neighborhoods_data_ss.json exists with valid JSON data.");
+}
+
+// Haversine formula to calculate distance between two lat/lng points in km
+function haversineDistance(lat1, lon1, lat2, lon2) {
+    function toRad(x) { return x * Math.PI / 180; }
+    const R = 6371; // Earth radius in km
+    const dLat = toRad(lat2 - lat1);
+    const dLon = toRad(lon2 - lon1);
+    const a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+        Math.cos(toRad(lat1)) * Math.cos(toRad(lat2)) *
+        Math.sin(dLon / 2) * Math.sin(dLon / 2);
+    const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+    return R * c;
 }
 
 // 🔄 Normalize Text Function (removes special characters and makes lowercase)
@@ -174,9 +200,109 @@ app.get('/api/v1/items/sorted', (req, res) => {
     res.json({ total_count: sortedData.length.toString(), results: sortedData });
 });
 
+// Helper function to generate Wikipedia URL from place name
+function generateWikipediaUrl(placeName) {
+    if (!placeName || placeName === 'N/A') return null;
+    
+    // Clean the place name for URL
+    const cleanName = placeName
+        .replace(/[^\w\s-]/g, '') // Remove special characters except spaces and hyphens
+        .replace(/\s+/g, '_') // Replace spaces with underscores
+        .trim();
+    
+    if (cleanName.length === 0) return null;
+    
+    return `https://en.wikipedia.org/wiki/${cleanName}`;
+}
+
+// API: Get neighborhoods within a given range (km) of given lat/lng (returns only required fields)
+app.get('/api/v1/neighborhoods/nearby', (req, res) => {
+    const { lat, lng, range } = req.query;
+    if (!lat || !lng) {
+        return res.status(400).json({ message: "lat and lng query parameters are required" });
+    }
+    const latitude = parseFloat(lat);
+    const longitude = parseFloat(lng);
+    const maxDistance = range ? parseFloat(range) : 50; // Default to 50km if not provided
+    if (isNaN(latitude) || isNaN(longitude) || isNaN(maxDistance)) {
+        return res.status(400).json({ message: "lat, lng, and range must be valid numbers" });
+    }
+    const results = neighborhoodsData
+        .map(place => {
+            const distance = haversineDistance(latitude, longitude, place.latitude, place.longitude);
+            return {
+                placeName: place.placeName,
+                placeType: place.placeType,
+                country: place.country,
+                state: place.state,
+                region: place.region,
+                district: place.district,
+                pincode: place.pincode,
+                lokSabhaConstituency: (() => {
+                    const lokSabha = place.lokSabhaConstituency || place.LokSabhaConstituency;
+                    return (lokSabha && lokSabha !== 'N/A') ? lokSabha : null;
+                })(),
+                vidhanSabhaConstituency: (() => {
+                    const vidhanSabha = place.vidhanSabhaConstituency || place.VidhanSabhaConstituency || place.AssemblyConstituency;
+                    return (vidhanSabha && vidhanSabha !== 'N/A') ? vidhanSabha : null;
+                })(),
+                imageUrls: place.imageUrls,
+                wikipediaUrl: generateWikipediaUrl(place.placeName),
+                distance_km: parseFloat(distance.toFixed(2))
+            };
+        })
+        .filter(place => place.distance_km <= maxDistance)
+        .sort((a, b) => a.distance_km - b.distance_km);
+    res.json({
+        count: results.length,
+        input: { lat: latitude, lng: longitude, range: maxDistance },
+        places: results
+    });
+});
+
+
+// Debug endpoint to check raw data
+app.get('/api/v1/debug/constituencies', (req, res) => {
+    const sampleData = neighborhoodsData.slice(0, 5).map(place => ({
+        placeName: place.placeName,
+        lokSabhaConstituency: place.lokSabhaConstituency,
+        vidhanSabhaConstituency: place.vidhanSabhaConstituency,
+        LokSabhaConstituency: place.LokSabhaConstituency,
+        VidhanSabhaConstituency: place.VidhanSabhaConstituency,
+        AssemblyConstituency: place.AssemblyConstituency
+    }));
+    res.json(sampleData);
+});
+
+// Debug endpoint to check processed data
+app.get('/api/v1/debug/processed', (req, res) => {
+    const { lat, lng } = req.query;
+    const latitude = parseFloat(lat) || 17;
+    const longitude = parseFloat(lng) || 78;
+    
+    const sampleData = neighborhoodsData.slice(0, 5).map(place => {
+        const distance = haversineDistance(latitude, longitude, place.latitude, place.longitude);
+        return {
+            placeName: place.placeName,
+            raw_lokSabha: place.lokSabhaConstituency,
+            raw_vidhanSabha: place.vidhanSabhaConstituency,
+            processed_lokSabha: (() => {
+                const lokSabha = place.lokSabhaConstituency || place.LokSabhaConstituency;
+                return (lokSabha && lokSabha !== 'N/A') ? lokSabha : null;
+            })(),
+            processed_vidhanSabha: (() => {
+                const vidhanSabha = place.vidhanSabhaConstituency || place.VidhanSabhaConstituency || place.AssemblyConstituency;
+                return (vidhanSabha && vidhanSabha !== 'N/A') ? vidhanSabha : null;
+            })(),
+            distance_km: parseFloat(distance.toFixed(2))
+        };
+    });
+    res.json(sampleData);
+});
+
 // ✅ Default Route
 app.get('/', (req, res) => {
-    res.send('Welcome to the Updated Express.js Backend');
+    res.sendFile(path.join(__dirname, 'index.html'));
 });
 
 // ✅ Start Server
