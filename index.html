@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nearby Neighborhoods Finder</title>
+  <style>
+    body { font-family: Arial, sans-serif; background: #f7f7f7; margin: 0; padding: 0; }
+    .container { max-width: 700px; margin: 40px auto; background: #fff; border-radius: 8px; box-shadow: 0 2px 8px #0001; padding: 32px; }
+    h1 { text-align: center; color: #333; }
+    form { display: flex; gap: 16px; justify-content: center; margin-bottom: 24px; }
+    input[type="number"] { padding: 8px; border: 1px solid #ccc; border-radius: 4px; width: 120px; }
+    button { padding: 8px 20px; background: #007bff; color: #fff; border: none; border-radius: 4px; cursor: pointer; font-size: 16px; }
+    button:hover { background: #0056b3; }
+    table { width: 100%; border-collapse: collapse; margin-top: 24px; }
+    th, td { padding: 8px 10px; border: 1px solid #ddd; text-align: left; }
+    th { background: #f0f0f0; }
+    img { max-width: 80px; max-height: 60px; border-radius: 4px; }
+    .no-results { text-align: center; color: #888; margin-top: 32px; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Nearby Neighborhoods Finder</h1>
+    <form id="searchForm">
+      <input type="number" step="any" id="lat" placeholder="Latitude" required>
+      <input type="number" step="any" id="lng" placeholder="Longitude" required>
+      <button type="submit">Find Nearby</button>
+    </form>
+    <div id="results"></div>
+  </div>
+  <script>
+    const form = document.getElementById('searchForm');
+    const resultsDiv = document.getElementById('results');
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const lat = document.getElementById('lat').value;
+      const lng = document.getElementById('lng').value;
+      resultsDiv.innerHTML = '<p>Loading...</p>';
+      try {
+        const res = await fetch(`/api/v1/neighborhoods/nearby?lat=${lat}&lng=${lng}`);
+        const data = await res.json();
+        if (data.count === 0) {
+          resultsDiv.innerHTML = '<div class="no-results">No neighborhoods found within 50km.</div>';
+        } else {
+          let html = `<table><thead><tr>
+            <th>Name</th><th>Type</th><th>Country</th><th>State</th><th>Region</th><th>District</th><th>Pincode</th><th>Lok Sabha</th><th>Vidhan Sabha</th><th>Image</th><th>Distance (km)</th><th>Wikipedia</th>
+          </tr></thead><tbody>`;
+          for (const place of data.places) {
+            html += `<tr>
+              <td>${place.placeName}</td>
+              <td>${place.placeType}</td>
+              <td>${place.country}</td>
+              <td>${place.state}</td>
+              <td>${place.region}</td>
+              <td>${place.district}</td>
+              <td>${place.pincode}</td>
+              <td>${place.lokSabhaConstituency !== null ? place.lokSabhaConstituency : 'N/A'}</td>
+              <td>${place.vidhanSabhaConstituency !== null ? place.vidhanSabhaConstituency : 'N/A'}</td>
+              <td>${place.imageUrls && place.imageUrls.length ? `<img src='${place.imageUrls[0]}' alt='${place.placeName}'>` : 'N/A'}</td>
+              <td>${place.distance_km}</td>
+              <td>${place.wikipediaUrl ? `<a href='${place.wikipediaUrl}' target='_blank'>Wikipedia</a>` : 'N/A'}</td>
+            </tr>`;
+          }
+          html += '</tbody></table>';
+          resultsDiv.innerHTML = html;
+        }
+      } catch (err) {
+        resultsDiv.innerHTML = '<div class="no-results">Error fetching data.</div>';
+      }
+    });
+  </script>
+</body>
+</html> 
