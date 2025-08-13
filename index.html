@@ -3,13 +3,18 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Nearby Neighborhoods Finder</title>
+  <title>Nearby Neighborhoods & Pincode Finder</title>
   <style>
     body { font-family: Arial, sans-serif; background: #f7f7f7; margin: 0; padding: 0; }
-    .container { max-width: 700px; margin: 40px auto; background: #fff; border-radius: 8px; box-shadow: 0 2px 8px #0001; padding: 32px; }
-    h1 { text-align: center; color: #333; }
-    form { display: flex; gap: 16px; justify-content: center; margin-bottom: 24px; }
-    input[type="number"] { padding: 8px; border: 1px solid #ccc; border-radius: 4px; width: 120px; }
+    .container { max-width: 1200px; margin: 40px auto; background: #fff; border-radius: 8px; box-shadow: 0 2px 8px #0001; padding: 32px; }
+    h1 { text-align: center; color: #333; margin-bottom: 40px; }
+    .tabs { display: flex; margin-bottom: 24px; border-bottom: 2px solid #eee; }
+    .tab { padding: 12px 24px; cursor: pointer; border: none; background: #007bff; color: white; font-size: 16px; border-radius: 4px 4px 0 0; margin-right: 4px; }
+    .tab.active { background: #0056b3; color: white; border-radius: 4px 4px 0 0; }
+    .tab-content { display: none; }
+    .tab-content.active { display: block; }
+    form { display: flex; gap: 16px; justify-content: center; margin-bottom: 24px; flex-wrap: wrap; }
+    input[type="number"], input[type="text"] { padding: 8px; border: 1px solid #ccc; border-radius: 4px; width: 120px; }
     button { padding: 8px 20px; background: #007bff; color: #fff; border: none; border-radius: 4px; cursor: pointer; font-size: 16px; }
     button:hover { background: #0056b3; }
     table { width: 100%; border-collapse: collapse; margin-top: 24px; }
@@ -17,23 +22,124 @@
     th { background: #f0f0f0; }
     img { max-width: 80px; max-height: 60px; border-radius: 4px; }
     .no-results { text-align: center; color: #888; margin-top: 32px; }
+    .search-section { margin-bottom: 32px; }
+    .search-section h3 { color: #333; margin-bottom: 16px; }
   </style>
 </head>
 <body>
   <div class="container">
-    <h1>Nearby Neighborhoods Finder</h1>
-    <form id="searchForm">
-      <input type="number" step="any" id="lat" placeholder="Latitude" required>
-      <input type="number" step="any" id="lng" placeholder="Longitude" required>
-      <button type="submit">Find Nearby</button>
-    </form>
-    <div id="results"></div>
+    <h1>Nearby Neighborhoods & Pincode Finder</h1>
+    
+    <div class="tabs">
+      <button class="tab active" onclick="showTab('neighborhoods')">Neighborhoods</button>
+      <button class="tab" onclick="showTab('pincode')">Pincode Search</button>
+      <button class="tab" onclick="showTab('enhanced')">Enhanced Search</button>
+      <button class="tab" onclick="showTab('places')">Nearby Places</button>
+    </div>
+
+    <!-- Neighborhoods Tab -->
+    <div id="neighborhoods" class="tab-content active">
+      <form id="searchForm">
+        <input type="number" step="any" id="lat" placeholder="Latitude" required>
+        <input type="number" step="any" id="lng" placeholder="Longitude" required>
+        <button type="submit">Find Nearby</button>
+      </form>
+      <div id="results"></div>
+    </div>
+
+    <!-- Pincode Search Tab -->
+    <div id="pincode" class="tab-content">
+      <div class="search-section">
+        <h3>Search by Pincode</h3>
+        <form id="pincodeSearchForm">
+          <input type="text" id="pincodeSearch" placeholder="Pincode" required>
+          <button type="submit">Search Pincode</button>
+        </form>
+      </div>
+
+      <div class="search-section">
+        <h3>Search by Location</h3>
+        <form id="pincodeLocationForm">
+          <input type="text" id="stateSearch" placeholder="State">
+          <input type="text" id="districtSearch" placeholder="District">
+          <input type="text" id="officeSearch" placeholder="Office Name">
+          <button type="submit">Search</button>
+        </form>
+      </div>
+
+      <div class="search-section">
+        <h3>Find Nearby Pincodes</h3>
+        <form id="pincodeNearbyForm">
+          <input type="number" step="any" id="pincodeLat" placeholder="Latitude" required>
+          <input type="number" step="any" id="pincodeLng" placeholder="Longitude" required>
+          <input type="number" step="any" id="pincodeRange" placeholder="Range (km)" value="50">
+          <button type="submit">Find Nearby Pincodes</button>
+        </form>
+      </div>
+
+      <div id="pincodeResults"></div>
+    </div>
+
+    <!-- Enhanced Search Tab -->
+    <div id="enhanced" class="tab-content">
+      <form id="enhancedForm">
+        <input type="number" step="any" id="enhancedLat" placeholder="Latitude" required>
+        <input type="number" step="any" id="enhancedLng" placeholder="Longitude" required>
+        <input type="number" step="any" id="enhancedRange" placeholder="Range (km)" value="50">
+        <button type="submit">Enhanced Search</button>
+      </form>
+      <div id="enhancedResults"></div>
+    </div>
+
+    <!-- Nearby Places Tab -->
+    <div id="places" class="tab-content">
+      <div class="search-section">
+        <h3>Find Nearby Places with Pincode Information</h3>
+        <form id="placesForm">
+          <input type="number" step="any" id="placesLat" placeholder="Latitude" required>
+          <input type="number" step="any" id="placesLng" placeholder="Longitude" required>
+          <input type="number" step="any" id="placesRange" placeholder="Range (km)" value="50">
+          <button type="submit">Find Nearby Places</button>
+        </form>
+      </div>
+
+      <div class="search-section">
+        <h3>Enhanced Nearby Places (with Pincode Matching)</h3>
+        <form id="placesEnhancedForm">
+          <input type="number" step="any" id="placesEnhancedLat" placeholder="Latitude" required>
+          <input type="number" step="any" id="placesEnhancedLng" placeholder="Longitude" required>
+          <input type="number" step="any" id="placesEnhancedRange" placeholder="Range (km)" value="50">
+          <button type="submit">Enhanced Search</button>
+        </form>
+      </div>
+
+      <div id="placesResults"></div>
+    </div>
   </div>
+
   <script>
-    const form = document.getElementById('searchForm');
+    // Tab functionality
+    function showTab(tabName) {
+      // Hide all tab contents
+      const tabContents = document.querySelectorAll('.tab-content');
+      tabContents.forEach(content => content.classList.remove('active'));
+      
+      // Remove active class from all tabs
+      const tabs = document.querySelectorAll('.tab');
+      tabs.forEach(tab => tab.classList.remove('active'));
+      
+      // Show selected tab content
+      document.getElementById(tabName).classList.add('active');
+      
+      // Add active class to clicked tab
+      event.target.classList.add('active');
+    }
+
+    // Neighborhoods search
+    const searchForm = document.getElementById('searchForm');
     const resultsDiv = document.getElementById('results');
 
-    form.addEventListener('submit', async (e) => {
+    searchForm.addEventListener('submit', async (e) => {
       e.preventDefault();
       const lat = document.getElementById('lat').value;
       const lng = document.getElementById('lng').value;
@@ -70,6 +176,292 @@
         resultsDiv.innerHTML = '<div class="no-results">Error fetching data.</div>';
       }
     });
-  </script>
-</body>
+
+    // Pincode search by number
+    const pincodeSearchForm = document.getElementById('pincodeSearchForm');
+    const pincodeResultsDiv = document.getElementById('pincodeResults');
+
+    pincodeSearchForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const pincode = document.getElementById('pincodeSearch').value;
+      pincodeResultsDiv.innerHTML = '<p>Loading...</p>';
+      try {
+        const res = await fetch(`/api/v1/pincode/${pincode}`);
+        const data = await res.json();
+        if (data.count === 0) {
+          pincodeResultsDiv.innerHTML = '<div class="no-results">Pincode not found.</div>';
+        } else {
+          let html = `<h3>Pincode: ${data.pincode}</h3><table><thead><tr>
+            <th>Office Name</th><th>District</th><th>State</th><th>Division</th><th>Region</th><th>Latitude</th><th>Longitude</th>
+          </tr></thead><tbody>`;
+          for (const detail of data.details) {
+            html += `<tr>
+              <td>${detail.OfficeName}</td>
+              <td>${detail.District}</td>
+              <td>${detail.StateName}</td>
+              <td>${detail.DivisionName}</td>
+              <td>${detail.RegionName}</td>
+              <td>${detail.Latitude}</td>
+              <td>${detail.Longitude}</td>
+            </tr>`;
+          }
+          html += '</tbody></table>';
+          pincodeResultsDiv.innerHTML = html;
+        }
+      } catch (err) {
+        pincodeResultsDiv.innerHTML = '<div class="no-results">Error fetching data.</div>';
+      }
+    });
+
+    // Pincode search by location
+    const pincodeLocationForm = document.getElementById('pincodeLocationForm');
+    
+    pincodeLocationForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const state = document.getElementById('stateSearch').value;
+      const district = document.getElementById('districtSearch').value;
+      const office = document.getElementById('officeSearch').value;
+      
+      const params = new URLSearchParams();
+      if (state) params.append('state', state);
+      if (district) params.append('district', district);
+      if (office) params.append('office', office);
+      
+      pincodeResultsDiv.innerHTML = '<p>Loading...</p>';
+      try {
+        const res = await fetch(`/api/v1/pincode/search?${params}`);
+        const data = await res.json();
+        if (data.count === 0) {
+          pincodeResultsDiv.innerHTML = '<div class="no-results">No pincodes found.</div>';
+        } else {
+          let html = `<h3>Search Results (${data.count} found)</h3><table><thead><tr>
+            <th>Pincode</th><th>Office Name</th><th>District</th><th>State</th><th>Division</th><th>Region</th><th>Latitude</th><th>Longitude</th>
+          </tr></thead><tbody>`;
+          for (const result of data.results.slice(0, 50)) { // Limit to 50 results
+            html += `<tr>
+              <td>${result.Pincode}</td>
+              <td>${result.OfficeName}</td>
+              <td>${result.District}</td>
+              <td>${result.StateName}</td>
+              <td>${result.DivisionName}</td>
+              <td>${result.RegionName}</td>
+              <td>${result.Latitude}</td>
+              <td>${result.Longitude}</td>
+            </tr>`;
+          }
+          html += '</tbody></table>';
+          if (data.count > 50) {
+            html += `<p>Showing first 50 results out of ${data.count} total results.</p>`;
+          }
+          pincodeResultsDiv.innerHTML = html;
+        }
+      } catch (err) {
+        pincodeResultsDiv.innerHTML = '<div class="no-results">Error fetching data.</div>';
+      }
+    });
+
+    // Pincode nearby search
+    const pincodeNearbyForm = document.getElementById('pincodeNearbyForm');
+    
+    pincodeNearbyForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const lat = document.getElementById('pincodeLat').value;
+      const lng = document.getElementById('pincodeLng').value;
+      const range = document.getElementById('pincodeRange').value;
+      
+      pincodeResultsDiv.innerHTML = '<p>Loading...</p>';
+      try {
+        const res = await fetch(`/api/v1/pincode/nearby?lat=${lat}&lng=${lng}&range=${range}`);
+        const data = await res.json();
+        if (data.count === 0) {
+          pincodeResultsDiv.innerHTML = '<div class="no-results">No pincodes found within the specified range.</div>';
+        } else {
+          let html = `<h3>Nearby Pincodes (${data.count} found within ${data.input.range}km)</h3><table><thead><tr>
+            <th>Pincode</th><th>Office Name</th><th>District</th><th>State</th><th>Distance (km)</th><th>Latitude</th><th>Longitude</th>
+          </tr></thead><tbody>`;
+          for (const pincode of data.pincodes.slice(0, 50)) { // Limit to 50 results
+            html += `<tr>
+              <td>${pincode.Pincode}</td>
+              <td>${pincode.OfficeName}</td>
+              <td>${pincode.District}</td>
+              <td>${pincode.StateName}</td>
+              <td>${pincode.distance_km}</td>
+              <td>${pincode.Latitude}</td>
+              <td>${pincode.Longitude}</td>
+            </tr>`;
+          }
+          html += '</tbody></table>';
+          if (data.count > 50) {
+            html += `<p>Showing first 50 results out of ${data.count} total results.</p>`;
+          }
+          pincodeResultsDiv.innerHTML = html;
+        }
+      } catch (err) {
+        pincodeResultsDiv.innerHTML = '<div class="no-results">Error fetching data.</div>';
+      }
+    });
+
+    // Enhanced search
+    const enhancedForm = document.getElementById('enhancedForm');
+    const enhancedResultsDiv = document.getElementById('enhancedResults');
+
+    enhancedForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const lat = document.getElementById('enhancedLat').value;
+      const lng = document.getElementById('enhancedLng').value;
+      const range = document.getElementById('enhancedRange').value;
+      enhancedResultsDiv.innerHTML = '<p>Loading...</p>';
+      try {
+        const res = await fetch(`/api/v1/neighborhoods/nearby/enhanced?lat=${lat}&lng=${lng}&range=${range}`);
+        const data = await res.json();
+        
+        let html = `<h3>Enhanced Search Results</h3>`;
+        html += `<p>Found ${data.count.neighborhoods} neighborhoods and ${data.count.pincodes} pincodes within ${data.input.range}km</p>`;
+        
+        // Neighborhoods section
+        if (data.neighborhoods.length > 0) {
+          html += `<h4>Nearby Neighborhoods</h4><table><thead><tr>
+            <th>Name</th><th>Type</th><th>State</th><th>District</th><th>Pincode</th><th>Distance (km)</th>
+          </tr></thead><tbody>`;
+          for (const place of data.neighborhoods.slice(0, 20)) {
+            html += `<tr>
+              <td>${place.placeName}</td>
+              <td>${place.placeType}</td>
+              <td>${place.state}</td>
+              <td>${place.district}</td>
+              <td>${place.pincode}</td>
+              <td>${place.distance_km}</td>
+            </tr>`;
+          }
+          html += '</tbody></table>';
+        }
+        
+        // Pincodes section
+        if (data.pincodes.length > 0) {
+          html += `<h4>Nearby Pincodes</h4><table><thead><tr>
+            <th>Pincode</th><th>Office Name</th><th>District</th><th>State</th><th>Distance (km)</th>
+          </tr></thead><tbody>`;
+          for (const pincode of data.pincodes.slice(0, 20)) {
+            html += `<tr>
+              <td>${pincode.pincode}</td>
+              <td>${pincode.officeName}</td>
+              <td>${pincode.district}</td>
+              <td>${pincode.stateName}</td>
+              <td>${pincode.distance_km}</td>
+            </tr>`;
+          }
+          html += '</tbody></table>';
+        }
+        
+        if (data.neighborhoods.length === 0 && data.pincodes.length === 0) {
+          html = '<div class="no-results">No results found within the specified range.</div>';
+        }
+        
+        enhancedResultsDiv.innerHTML = html;
+             } catch (err) {
+         enhancedResultsDiv.innerHTML = '<div class="no-results">Error fetching data.</div>';
+       }
+     });
+
+     // Nearby Places search
+     const placesForm = document.getElementById('placesForm');
+     const placesEnhancedForm = document.getElementById('placesEnhancedForm');
+     const placesResultsDiv = document.getElementById('placesResults');
+
+     placesForm.addEventListener('submit', async (e) => {
+       e.preventDefault();
+       const lat = document.getElementById('placesLat').value;
+       const lng = document.getElementById('placesLng').value;
+       const range = document.getElementById('placesRange').value;
+       placesResultsDiv.innerHTML = '<p>Loading...</p>';
+       try {
+         const res = await fetch(`/api/v1/places/nearby?lat=${lat}&lng=${lng}&range=${range}`);
+         const data = await res.json();
+         
+         if (data.count === 0) {
+           placesResultsDiv.innerHTML = '<div class="no-results">No places found within the specified range.</div>';
+         } else {
+           let html = `<h3>Nearby Places (${data.count} found within ${data.input.range}km)</h3>`;
+           html += `<table><thead><tr>
+             <th>Type</th><th>Name</th><th>State</th><th>District</th><th>Pincode</th><th>Distance (km)</th><th>Pincode Info</th>
+           </tr></thead><tbody>`;
+           
+           for (const place of data.places.slice(0, 50)) {
+             const pincodeInfo = place.pincodeInfo ? 
+               `${place.pincodeInfo.officeName}<br><small>${place.pincodeInfo.divisionName}</small>` : 
+               'N/A';
+             
+             html += `<tr>
+               <td>${place.type}</td>
+               <td>${place.placeName}</td>
+               <td>${place.state}</td>
+               <td>${place.district}</td>
+               <td>${place.pincode || 'N/A'}</td>
+               <td>${place.distance_km}</td>
+               <td>${pincodeInfo}</td>
+             </tr>`;
+           }
+           html += '</tbody></table>';
+           
+           if (data.count > 50) {
+             html += `<p>Showing first 50 results out of ${data.count} total results.</p>`;
+           }
+           placesResultsDiv.innerHTML = html;
+         }
+       } catch (err) {
+         placesResultsDiv.innerHTML = '<div class="no-results">Error fetching data.</div>';
+       }
+     });
+
+     placesEnhancedForm.addEventListener('submit', async (e) => {
+       e.preventDefault();
+       const lat = document.getElementById('placesEnhancedLat').value;
+       const lng = document.getElementById('placesEnhancedLng').value;
+       const range = document.getElementById('placesEnhancedRange').value;
+       placesResultsDiv.innerHTML = '<p>Loading...</p>';
+       try {
+         const res = await fetch(`/api/v1/places/nearby/enhanced?lat=${lat}&lng=${lng}&range=${range}`);
+         const data = await res.json();
+         
+         if (data.count === 0) {
+           placesResultsDiv.innerHTML = '<div class="no-results">No places found within the specified range.</div>';
+         } else {
+           let html = `<h3>Enhanced Nearby Places (${data.count} found within ${data.input.range}km)</h3>`;
+           html += `<table><thead><tr>
+             <th>Type</th><th>Name</th><th>State</th><th>District</th><th>Pincode</th><th>Distance (km)</th><th>Pincode Match</th><th>Pincode Details</th>
+           </tr></thead><tbody>`;
+           
+           for (const place of data.places.slice(0, 50)) {
+             const pincodeMatch = place.pincodeInfo ? 
+               `${place.pincodeInfo.matchType}<br><small>${place.pincodeInfo.matchDistance}km</small>` : 
+               'N/A';
+             
+             const pincodeDetails = place.pincodeInfo ? 
+               `${place.pincodeInfo.officeName}<br><small>${place.pincodeInfo.divisionName}</small>` : 
+               'N/A';
+             
+             html += `<tr>
+               <td>${place.type}</td>
+               <td>${place.placeName}</td>
+               <td>${place.state}</td>
+               <td>${place.district}</td>
+               <td>${place.pincode || 'N/A'}</td>
+               <td>${place.distance_km}</td>
+               <td>${pincodeMatch}</td>
+               <td>${pincodeDetails}</td>
+             </tr>`;
+           }
+           html += '</tbody></table>';
+           
+           if (data.count > 50) {
+             html += `<p>Showing first 50 results out of ${data.count} total results.</p>`;
+           }
+           placesResultsDiv.innerHTML = html;
+         }
+       } catch (err) {
+         placesResultsDiv.innerHTML = '<div class="no-results">Error fetching data.</div>';
+       }
+     });
+   </script>
+ </body>
 </html> 
