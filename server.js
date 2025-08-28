@@ -1,15 +1,32 @@
 const express = require('express');
 const cors = require('cors');
 const fs = require('fs');
+const csv = require('csv-parser');
 const path = require('path');
+const cheerio = require('cheerio');
+
+
+
+
 
 const app = express();
 const PORT = 5001; // Changed from 5000 to 5001
 
+const { loadMlaData, mlaData } = require('./load_mla_data');
+
+const csvFilePath = path.join(__dirname, 'telangana_assembly_term_3.csv');
+
+loadMlaData(csvFilePath).then(() => {
+  // Now mlaData array is ready to use in API responses
+  console.log('MLA data ready to use');
+}).catch((err) => {
+  console.error('Error loading MLA data:', err);
+});
+
 // Middleware
 app.use(cors());
 app.use(express.json());
-app.use(express.static(__dirname));
+
 
 // Load JSON Data
 const dataFilePath = path.join(__dirname, 'data.json');
@@ -87,6 +104,86 @@ function haversineDistance(lat1, lon1, lat2, lon2) {
     const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
     return R * c;
 }
+const axios = require('axios');
+
+ // can be removed if no scraping
+
+
+let mpDataCsv = [];
+
+// Load MP CSV once at server startup
+const loadMpCsv = () => {
+  return new Promise((resolve, reject) => {
+    const results = [];
+    fs.createReadStream(path.join(__dirname, '18-LS-MP-Track.csv'))
+      .pipe(csv())
+      .on('data', data => results.push(data))
+      .on('end', () => {
+        mpDataCsv = results;
+        resolve();
+      })
+      .on('error', reject);
+  });
+};
+
+loadMpCsv()
+  .then(() => console.log('MP CSV data loaded.'))
+  .catch(console.error);
+
+// Your existing MLA API routes (unchanged)
+app.get('/api/v1/mla-info', (req, res) => {
+  const constituency = req.query.constituency;
+  if (!constituency) {
+    return res.status(400).json({ error: 'constituency parameter is required' });
+  }
+  const results = mlaData.filter(row => row.Constituency.toLowerCase() === constituency.toLowerCase());
+  if (results.length === 0) {
+    return res.status(404).json({ error: 'No MLA data found for constituency' });
+  }
+  res.json({ mla: results });
+});
+
+app.get('/api/v1/mla-constituencies', (req, res) => {
+  const constituencies = mlaData.map(row => row.Constituency);
+  res.json({ constituencies });
+});
+
+// Modified representatives API route using MP CSV instead of scraping
+app.get('/api/v1/representatives', async (req, res) => {
+  try {
+    const { constituency, pincode } = req.query;
+
+    // Filter MLA/MLC info as before
+    let mlaMlcData = [];
+    if (constituency) {
+      mlaMlcData = mlaData.filter(
+        row => row.Constituency.toLowerCase() === constituency.toLowerCase()
+      );
+    }
+
+    // Filter MP data from loaded CSV
+    let mpData = mpDataCsv;
+
+    // Filter by constituency if provided - matching pc_name field (parliamentary constituency)
+    if (constituency) {
+      const constituencyLower = constituency.toLowerCase();
+      mpData = mpData.filter(mp =>
+        mp.pc_name && mp.pc_name.toLowerCase().includes(constituencyLower)
+      );
+    }
+
+    // Optional: if you want to filter by pincode, add pincode-to-constituency mapping here
+    // and filter mpData accordingly
+
+    res.json({
+      mla_mlc_info: mlaMlcData,
+      mp_info: mpData
+    });
+  } catch (error) {
+    console.error('Error in representatives API:', error.message);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
 
 // 🔄 Normalize Text Function (removes special characters and makes lowercase)
 const normalizeText = (text) => text.replace(/[^a-zA-Z0-9 ]/g, "").toLowerCase();
@@ -145,6 +242,11 @@ app.get('/api/v1/items', (req, res) => {
         items: paginatedResults
     });
 });
+
+
+
+
+
 app.get("/api/mp/:pincode", async (req, res) => {
   try {
     const { pincode } = req.params;
@@ -841,6 +943,12 @@ app.get('/api/v1/places/nearby/enhanced', (req, res) => {
 app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, 'index.html'));
 });
+
+app.get('/', (req, res) => {
+    res.send('API server is running');
+});
+
+app.use(express.static(__dirname));
 
 // ✅ Start Server
 app.listen(PORT, () => {
