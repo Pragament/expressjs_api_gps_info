@@ -192,7 +192,7 @@
           pincodeResultsDiv.innerHTML = '<div class="no-results">Pincode not found.</div>';
         } else {
           let html = `<h3>Pincode: ${data.pincode}</h3><table><thead><tr>
-            <th>Office Name</th><th>District</th><th>State</th><th>Division</th><th>Region</th><th>Lok Sabha</th><th>Vidhan Sabha</th><th>Latitude</th><th>Longitude</th>
+            <th>Office Name</th><th>District</th><th>State</th><th>Division</th><th>Region</th><th>Lok Sabha</th><th>Latitude</th><th>Longitude</th>
           </tr></thead><tbody>`;
           for (const detail of data.details) {
             html += `<tr>
@@ -202,7 +202,7 @@
               <td>${detail.DivisionName}</td>
               <td>${detail.RegionName}</td>
               <td>${detail.lokSabhaConstituency ?? 'null'}</td>
-              <td>${detail.vidhanSabhaConstituency ?? 'null'}</td>
+              
               <td>${detail.Latitude}</td>
               <td>${detail.Longitude}</td>
             </tr>`;
