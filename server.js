@@ -5,24 +5,7 @@ const path = require('path');
 
 const app = express();
 const PORT = 5001; // Changed from 5000 to 5001
-app.get("/api/mp/:pincode", async (req, res) => {
-  try {
-    const { pincode } = req.params;
 
-    // Example: POST request to PRS India MPTrack with pincode
-    const response = await axios.post("https://prsindia.org/mptrack", {
-      search: pincode,
-    });
-
-    // NOTE: PRS returns HTML, not JSON → so you may need to parse it
-    // If you want structured JSON, you can scrape/parse here
-    res.send(response.data);
-
-  } catch (error) {
-    console.error("Error fetching MP data:", error.message);
-    res.status(500).json({ error: "Failed to fetch MP data" });
-  }
-});
 // Middleware
 app.use(cors());
 app.use(express.json());
@@ -162,7 +145,24 @@ app.get('/api/v1/items', (req, res) => {
         items: paginatedResults
     });
 });
+app.get("/api/mp/:pincode", async (req, res) => {
+  try {
+    const { pincode } = req.params;
 
+    // Example: POST request to PRS India MPTrack with pincode
+    const response = await axios.post("https://prsindia.org/mptrack", {
+      search: pincode,
+    });
+
+    // NOTE: PRS returns HTML, not JSON → so you may need to parse it
+    // If you want structured JSON, you can scrape/parse here
+    res.send(response.data);
+
+  } catch (error) {
+    console.error("Error fetching MP data:", error.message);
+    res.status(500).json({ error: "Failed to fetch MP data" });
+  }
+});
 
 
 // ✅ Fetch ALL Data Without Pagination (Full JSON Structure)
